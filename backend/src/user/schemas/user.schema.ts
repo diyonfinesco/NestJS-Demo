@@ -8,11 +8,11 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema()
 export class User {
+
   @Prop({
-    lowercase: true,
+    required: [true, 'first name is required!'],
+    maxlength: [15, 'first name should be less than 15 characters!'],
     trim: true,
-    maxlength: 15,
-    required: true
   })
   firstName: string;
 
@@ -20,7 +20,7 @@ export class User {
     lowercase: true,
     trim: true,
     maxlength: 20,
-    required: true,
+    required: [true, 'last name is required!'],
   })
   lastName: string;
 

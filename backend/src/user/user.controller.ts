@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
@@ -8,6 +8,13 @@ export class UserController {
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
-        return await this.userService.create(createUserDto)
+        try {
+            return await this.userService.create(createUserDto)
+        } catch (error) {
+            throw new BadRequestException('Something bad happened', {
+                cause: new Error(),
+                description: error.message
+            })
+        }
     }
 }
