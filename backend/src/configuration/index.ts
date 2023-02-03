@@ -1,4 +1,3 @@
-console.log(process.env.PORT)
 export default () => ({
     IS_PROD: process.env.NODE_ENV === 'production',
     PORT: process.env.PORT || 5000,
