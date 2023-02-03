@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { ROLE, Token } from 'src/common/interfaces';
+import { ROLE } from 'src/common/enums';
+import { Token } from 'src/common/types';
 import validator from 'validator'
 
 export type UserDocument = HydratedDocument<User>;
