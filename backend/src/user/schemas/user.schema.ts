@@ -3,15 +3,15 @@ import { HydratedDocument } from 'mongoose';
 import { ROLE } from 'src/common/enums';
 import { Token } from 'src/common/types';
 import validator from 'validator'
+import * as bcrypt from 'bcrypt';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
-
   @Prop({
     required: [true, 'first name is required!'],
-    maxlength: [15, 'first name should be less than 15 characters!'],
+    maxlength: 15,
     trim: true,
   })
   firstName: string;
@@ -60,3 +60,24 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.methods.toJSON = function () {
+  const userObject = this.toObject();
+
+  delete userObject.password;
+  delete userObject.tokens;
+  delete userObject.createdAt;
+  delete userObject.updatedAt;
+  delete userObject.__v;
+
+  return userObject;
+};
+
+UserSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 10);
+  }
+
+  next();
+});

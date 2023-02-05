@@ -9,4 +9,4 @@ export default () => ({
     GOOGLE_ANDROID_CLIENT_ID: `${process.env.GOOGLE_ANDROID_CLIENT_ID}`,
     GOOGLE_SECRET_KEY: `${process.env.GOOGLE_CLIENT_SECRET}`,
     CLIENT_PUBLIC_URL: `${process.env.CLIENT_PUBLIC_URL}`
-});
+})
