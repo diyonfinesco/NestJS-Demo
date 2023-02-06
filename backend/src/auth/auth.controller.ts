@@ -9,13 +9,13 @@ export class AuthController {
     constructor(private authService: AuthService) { }
 
     @Post('/register')
-    async register(@Body() createUserDto: CreateUserDto) {
+    async register(@Body() createUserDto: Readonly<CreateUserDto>) {
         return await this.authService.register(createUserDto)
     }
 
     @HttpCode(200)
     @Post('/login')
-    async login(@Body() loginUserDto: LoginUserDto) {
+    async login(@Body() loginUserDto: Readonly<LoginUserDto>) {
         return await this.authService.login(loginUserDto);
     }
 
